@@ -155,9 +155,10 @@ function navColorAdv(overrideOff = false) {
 
 // Version
 var version = "0.01" // -- 08/28/2024 08:40:27 PM --
-var releaseVersion = "0.01a" 
+var releaseVersion = "0.01b" 
 // -- Release Notes --
 // inital use of versioning
+// Quick fix made to fix link
 
 // To Work On
 // 
