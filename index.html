@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  <script src="index.js" defer> </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <title>CLR BLND</title>
+</head>
+<body>
+  <main>
+    <nav> 
+      <div id="nav-left"> 
+        <button onclick="navFullscreen()" class="nav-button">⛶</button>
+        <button class="nav-button">?</button>
+        <button class="nav-button" id="nav-color-button" onclick="navColor()">✦</button>
+        <div id="nav-color-dropdown">
+          <div id="nav-color-dropdown-top"> 
+            <div id="active-color-container"> 
+              <div class="active-color-bg"> <input type="color" class="active-color" id="ac1"/> <span> </span> </div>
+              <div class="active-color-bg"> <input type="color" class="active-color" id="ac2"/> <span> </span> </div>
+            </div> 
+          <!-- REVAMP COLOR SYSTEM? Swap Colors button! Ease (give options for like 2s) -->
+          </div>  
+          <!-- <button id="nav-color-dropdown-expand" onclick="navColorAdv()"> -> </button> -->
+        </div>
+        
+        <!-- Key board character ⌨ -->
+       </div>  
+    
+      <div id="nav-right"> 
+        <a class="nav-button"> Page 1 </a>
+        <a class="nav-button"> Page 2</a>
+        <button style="z-index: -5; visibility: hidden;"></button>
+      </div>
+    </nav>
+    <!-- &equiv; -->
+    <button id="toggle-nav" onclick="toggleNav()"><span>🞩</span><span>=</span></button>
+      <div id="mobile-touch-area">
+    <div id="main-text"> CLR BLND </div>  
+      </div>
+  </main>
+</body>
+</html>
