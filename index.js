@@ -34,21 +34,48 @@ if ('ontouchstart' in document.documentElement) {
 }
 
 document.addEventListener("keydown", (e) =>{
-  console.log(e.key)
+  // console.log(e.key)
   if ((e.key).toLowerCase() == " ") {
+    document.getElementById('tb-spacebar').style.backgroundColor = "var(--dc1)"
+    document.getElementById('tb-spacebar').style.color = "var(--dc2)"
     c1 = randomColor(); c2 = randomColor()
     while (checkContrast(c1, c2) > ratioThreshold) {
       c1 = randomColor(); c2 = randomColor()
     }
     updateColor([c1, c2])
-  } else if ((e.key).toLowerCase() == "arrowleft") {
+  } else if ((e.key).toLowerCase() == "arrowleft" || (e.key).toLowerCase() == "a") {
+    document.getElementById('tb-a').style.backgroundColor = "var(--dc1)"
+    document.getElementById('tb-a').style.color = "var(--dc2)"
+  } else if ((e.key).toLowerCase() == "arrowright" || (e.key).toLowerCase() == "d") {
+    document.getElementById('tb-d').style.backgroundColor = "var(--dc1)"
+    document.getElementById('tb-d').style.color = "var(--dc2)"
+  } else if ((e.key).toLowerCase() == "arrowup" || (e.key).toLowerCase() == "w") {
+    document.getElementById('tb-w').style.backgroundColor = "var(--dc1)"
+    document.getElementById('tb-w').style.color = "var(--dc2)"
+  } else if ((e.key).toLowerCase() == "arrowdown" || (e.key).toLowerCase() == "s") {
+    document.getElementById('tb-s').style.backgroundColor = "var(--dc1)"
+    document.getElementById('tb-s').style.color = "var(--dc2)"
+  } else {
 
-  } else if ((e.key).toLowerCase() == "arrowright") {
+  }
+})
 
-  } else if ((e.key).toLowerCase() == "arrowup") {
-
-  } else if ((e.key).toLowerCase() == "arrowdown") {
-
+document.addEventListener("keyup", (e) => {
+  if ((e.key).toLowerCase() == " ") {
+    document.getElementById('tb-spacebar').style.backgroundColor = "var(--dc2)"
+    document.getElementById('tb-spacebar').style.color = "var(--dc1)"
+  } else if ((e.key).toLowerCase() == "arrowleft" || (e.key).toLowerCase() == "a") {
+    document.getElementById('tb-a').style.backgroundColor = "var(--dc2)"
+    document.getElementById('tb-a').style.color = "var(--dc1)"
+  } else if ((e.key).toLowerCase() == "arrowright" || (e.key).toLowerCase() == "d") {
+    document.getElementById('tb-d').style.backgroundColor = "var(--dc2)"
+    document.getElementById('tb-d').style.color = "var(--dc1)"
+  } else if ((e.key).toLowerCase() == "arrowup" || (e.key).toLowerCase() == "w") {
+    document.getElementById('tb-w').style.backgroundColor = "var(--dc2)"
+    document.getElementById('tb-w').style.color = "var(--dc1)"
+  } else if ((e.key).toLowerCase() == "arrowdown" || (e.key).toLowerCase() == "s") {
+    document.getElementById('tb-s').style.backgroundColor = "var(--dc2)"
+    document.getElementById('tb-s').style.color = "var(--dc1)"
   } else {
 
   }
@@ -67,11 +94,15 @@ function updateColor(colorArray) {
   for (i of colorArray){
     if (i) {
       root.style.setProperty(`--dc${colorArray.indexOf(i)+1}`, i)
+      localStorage.setItem(`c${colorArray.indexOf(i)+1}`, i)
       activeColors[colorArray.indexOf(i)].value = i
       activeColors[colorArray.indexOf(i)].nextElementSibling.innerHTML = i
     }
   }
 }
+
+var localColors = [localStorage.getItem("c1"), localStorage.getItem("c2")]
+updateColor(localColors)
 
 var navStatus = false
 var tntl = gsap.timeline()
@@ -90,6 +121,14 @@ function toggleNav() {
   }
 }
 
+var toolStatus = false
+var ttl = gsap.timeline()
+ttl.set(".tt-item", {yPercent: 50, opacity: 0}) 
+function toggleToolTip() {
+  toolStatus ? ttl.to(".tt-item", {yPercent: 50, opacity: 0, ease:"ease", stagger: -.15}) 
+  :    ttl.to(".tt-item", {yPercent: 0, opacity: 1, ease:"ease", stagger: .15})
+  toolStatus = !toolStatus 
+}
 if (window.matchMedia("(max-width: 600px)").matches) {
   // FIRST STEP
   // TODO: change first tween in timeline with:
@@ -188,20 +227,13 @@ function checkContrast(c1, c2) {
    return ratio
 }
 
-// 179, 8, 254
-// 205, 155, 134
-
-// FOR TESTING NAV
-// toggleNav()
-// navColor()
-
 // Version
-var version = "0.02" // -- 04/07/2025 09:16 PM --
-var releaseVersion = "0.01b" 
+var version = "0.03" // -- 04/08/2025 03:21 PM --
+var releaseVersion = "0.02" 
 // -- Release Notes --
-// Added color contrast checker, random checks for contrast before switching
-// Removed Links
-// Switched nav to be veritcal + added hoverable tooltips
+// Made whole nav on left, restyled, and fixed the hover outside issue
+// Added accessibility button + tooltip button
+// Added tooltip functionality
 
 // To Work On
 // - Readability: Dyslexic mode? Contrast Mode, Larger text mode, color blind vision

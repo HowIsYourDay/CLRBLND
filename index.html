@@ -17,9 +17,10 @@
   <main>
     <nav> 
       <div id="nav-left"> 
-        <button onclick="navFullscreen()" class="nav-button">⛶ <label> Fullscreen </label></button>
-        <button class="nav-button">? <label> Help </label></button>
-        <button class="nav-button" id="nav-color-button" onclick="navColor()">✦ <label> Color Mapping </label></button>
+        <button id="toggle-nav" onclick="toggleNav()" alt="toggle nav button"><span>🞩</span><span>=</span></button>
+        <button onclick="navFullscreen()" class="nav-button" alt="fullscreen button">⛶ <label> Fullscreen </label></button>
+        <button class="nav-button" onclick="toggleToolTip()" alt="controls help button"> ⌨ <label> Controls </label></button>
+        <button class="nav-button" id="nav-color-button" onclick="navColor()" alt="color mapping button">✦ <label> Color Mapping </label></button>
         <div id="nav-color-dropdown">
             <div id="active-color-container"> 
               <div class="active-color-bg"> <input type="color" class="active-color" id="ac1"/> <span> </span> </div>
@@ -28,19 +29,32 @@
           <!-- REVAMP COLOR SYSTEM? Swap Colors button! Ease (give options for like 2s) -->
           <!-- <button id="nav-color-dropdown-expand" onclick="navColorAdv()"> -> </button> -->
         </div>
-        <button class="nav-button" onclick="navColor()">#</button>
-        
+        <button class="nav-button" onclick="" alt="accessibility button"> 
+          <svg width="111" height="110" viewBox="0 0 111 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M68.9766 15.5C68.9766 22.9558 62.9324 29 55.4766 29C48.0207 29 41.9766 22.9558 41.9766 15.5C41.9766 8.04416 48.0207 2 55.4766 2C62.9324 2 68.9766 8.04416 68.9766 15.5Z"/>
+          <path d="M52.0009 38.0049C37.0358 38.2843 26.0253 30.0042 23.0009 30.0049C19.9766 30.0056 15.1781 30.8618 15.0009 38.0049C14.8237 45.148 40.0009 52.0049 40.0009 52.0049C40.0009 52.0049 42.2371 59.3979 40.0009 70.0049C40.0009 70.0049 30.4341 98.0612 30.0009 102.505C29.5677 106.948 35.5477 107.823 40.0009 108.005C46.9858 108.29 49.852 77.6704 55.4766 78C61.1012 77.6704 64.0083 108.296 71.001 108.005C75.4541 107.82 81.4342 106.948 81.001 102.505C80.5678 98.0612 71.001 70.0049 71.001 70.0049C68.7648 59.3979 71.001 52.0049 71.001 52.0049C71.001 52.0049 96.1782 45.148 96.001 38.0049C95.8238 30.8618 91.0254 30.0056 88.001 30.0049C84.9767 30.0042 73.9662 38.2843 59.001 38.0049C57.6344 37.9794 55.4766 38 55.4766 38C55.4766 38 53.3675 37.9794 52.0009 38.0049Z" />
+          </svg> 
+          <label> Accessibility </label>
+        </button>
         <!-- Key board character ⌨ -->
        </div>  
     
-      <div id="nav-right"> 
-        <button style="z-index: -5; visibility: hidden;"></button>
-      </div>
     </nav>
     <!-- &equiv; -->
-    <button id="toggle-nav" onclick="toggleNav()"><span>🞩</span><span>=</span></button>
       <div id="mobile-touch-area">
     <div id="main-text"> CLR BLND </div> 
+      </div>
+
+      <div id="tooltip-bar">
+        <div id="tb-spacebar" class="tt-item"> Spacebar - Randomize Colors </div>
+        <div id="tb-arrow-container">
+          <div class="tb-arrow-key tb-empty-key"> </div>  
+          <div class="tb-arrow-key tt-item" id="tb-w"> ↑ </div>  
+          <div class="tb-arrow-key tb-empty-key"> </div>  
+          <div class="tb-arrow-key tt-item" id="tb-a"> ← </div>  
+          <div class="tb-arrow-key tt-item" id="tb-s"> ↓ </div>  
+          <div class="tb-arrow-key tt-item" id="tb-d"> → </div>  
+        </div>
       </div>
   </main>
 </body>
