@@ -35,7 +35,7 @@ main {
 }
 
 #main-text {
-  font-size: 19vw;
+  font-size: 17.5vw;
   font-weight: 900;
   color: var(--dc1);
   transition: var(--ease-time) ease;
@@ -49,34 +49,31 @@ nav {
   display: flex; align-items: center; justify-content: space-between;
 }
 
-#nav-left, #nav-right {
-  display: flex;
+#nav-left {
+  display: flex; flex-direction: column;
   align-items: center;
-  gap: .75rem;
+  position: fixed; top: 1rem;
 }
 
-#nav-right {
-  gap: 3rem;
-}
 
 .nav-button {
-  transform: translateY(-300%);
+  transform: translateX(-300%);
 }
 
 nav button {
-  background-color: transparent;
+  background-color: var(--dc2);
   width: 2.5rem; height: 2.5rem;
   border: none; border-radius: 50%;
   border: 2px solid var(--dc1);
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-end;
-  overflow: hidden;
   color: var(--dc1);
   transition: var(--ease-time) ease;
   height: 2.5rem;
   font-size: 1.25rem; font-weight: 200;
   line-height: 2.25rem;
-  z-index: 3;
+  z-index: 10; position: relative;
+  margin-bottom: .75rem;
 }
 
 nav button:hover {
@@ -85,38 +82,45 @@ nav button:hover {
   /* transform: translateY(.15rem); */
 }
 
-nav a {
-  color: var(--dc1);
-  transition: color var(--ease-time) ease;
+nav button label {
+  position: absolute; left: 100%;
+  color: var(--dc2);
+  overflow: hidden;
+  transition: background-color var(--ease-time ) ease, left .5s ease, opacity .5s ease;
+  border-radius: 2.5rem;
+  font-family: 'Inter'; font-weight: 300;
+  padding: 0 .5rem;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+nav button:hover label {
+  left: 135%;
+  background-color: var(--dc1);
+  opacity: 1;
 }
 
 #nav-color-dropdown {
-  position: absolute;
-  /* width: 30rem; */
+  max-height: 0;
   background-color: var(--dc2);
-  height: 2.5rem;
-  top: calc(5rem - 2px);
+  width: 2.5rem;
   z-index: 2;
-  display: flex; flex-direction: column;
+  display: flex;
   justify-content: center; 
-  transition: border var(--ease-time) ease, background-color var(--ease-time) ease, transform .5s ease, opacity .5s ease;
+  transition: border var(--ease-time) ease, background-color var(--ease-time) ease, transform .5s ease, opacity .5s ease, max-height .5s ease, margin-bottom .5s ease;
   transform: translateX(-150%); opacity: 0;
-}
-
-#nav-color-dropdown-top {
-  border: 2px solid var(--dc1);
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  border-radius: 2.5rem;
-  transition: border var(--ease-time) ease;
+  /* margin-bottom: .75rem; */
 }
 
 #active-color-container {
-  display: flex; align-items: center;
-  height: 100%; 
+  border: 2px solid var(--dc1);
+  height: 100%;
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden;
+  border-radius: 2.5rem;
+  transition: border var(--ease-time) ease;
+  width: 100%; 
   /* background: linear-gradient(to left, var(--dc1) 50%, var(--dc2) 50%); */
    box-sizing: border-box;
   transition: background var(--ease-time) ease;
@@ -135,7 +139,7 @@ nav a {
   width: 100%;
   height: 100%;
   display: grid; place-items: center; 
-  padding: 0 .3rem;
+  padding: .3rem 0;
   box-sizing: border-box;
   transition: background-color var(--ease-time) ease, border var(--ease-time) ease,
   width .5s ease, height .5s ease;
@@ -144,14 +148,14 @@ nav a {
 .active-color-bg span {
   display: none;
   position: relative;
-  bottom: -1rem;
+  /* bottom: -1rem; */
   transform: translateY(200%);
   font-weight: 900;
 }
 
 #nav-color-dropdown-expand {
   position: absolute;
-  right: -2.25rem;
+  /* right: -2.25rem; */
   font-family: Inter;
   font-size: .75rem; font-weight: 700; line-height: 1.75rem;
   width: 1.75rem; height: 1.75rem; border: none;

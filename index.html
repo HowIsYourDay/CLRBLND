@@ -17,33 +17,30 @@
   <main>
     <nav> 
       <div id="nav-left"> 
-        <button onclick="navFullscreen()" class="nav-button">⛶</button>
-        <button class="nav-button">?</button>
-        <button class="nav-button" id="nav-color-button" onclick="navColor()">✦</button>
+        <button onclick="navFullscreen()" class="nav-button">⛶ <label> Fullscreen </label></button>
+        <button class="nav-button">? <label> Help </label></button>
+        <button class="nav-button" id="nav-color-button" onclick="navColor()">✦ <label> Color Mapping </label></button>
         <div id="nav-color-dropdown">
-          <div id="nav-color-dropdown-top"> 
             <div id="active-color-container"> 
               <div class="active-color-bg"> <input type="color" class="active-color" id="ac1"/> <span> </span> </div>
               <div class="active-color-bg"> <input type="color" class="active-color" id="ac2"/> <span> </span> </div>
             </div> 
           <!-- REVAMP COLOR SYSTEM? Swap Colors button! Ease (give options for like 2s) -->
-          </div>  
           <!-- <button id="nav-color-dropdown-expand" onclick="navColorAdv()"> -> </button> -->
         </div>
+        <button class="nav-button" onclick="navColor()">#</button>
         
         <!-- Key board character ⌨ -->
        </div>  
     
       <div id="nav-right"> 
-        <a class="nav-button"> Page 1 </a>
-        <a class="nav-button"> Page 2</a>
         <button style="z-index: -5; visibility: hidden;"></button>
       </div>
     </nav>
     <!-- &equiv; -->
     <button id="toggle-nav" onclick="toggleNav()"><span>🞩</span><span>=</span></button>
       <div id="mobile-touch-area">
-    <div id="main-text"> CLR BLND </div>  
+    <div id="main-text"> CLR BLND </div> 
       </div>
   </main>
 </body>

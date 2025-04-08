@@ -4,6 +4,7 @@ var activeColor1 = document.querySelectorAll(".active-color")[0]
 var activeColor2 = document.querySelectorAll(".active-color")[1]
 // var activeColor3 = document.querySelectorAll(".active-color")[2]
 var activeColors = [activeColor1, activeColor2]
+var ratioThreshold = .5
 
 // Make sure active colors are set correctly because html cannot read css vars
 // activeColors[0].setAttribute("value", (getComputedStyle(root).getPropertyValue('--dc1')))
@@ -25,7 +26,7 @@ for (i of activeColors) {
   })
 }
 
-// Check for touchscreen and adjsut control
+// Check for touchscreen and adjust control
 if ('ontouchstart' in document.documentElement) {
   document.getElementById("mobile-touch-area").addEventListener("touchstart", (e) => {
     updateColor([randomColor(), randomColor()])
@@ -35,7 +36,11 @@ if ('ontouchstart' in document.documentElement) {
 document.addEventListener("keydown", (e) =>{
   console.log(e.key)
   if ((e.key).toLowerCase() == " ") {
-    updateColor([randomColor(), randomColor()])
+    c1 = randomColor(); c2 = randomColor()
+    while (checkContrast(c1, c2) > ratioThreshold) {
+      c1 = randomColor(); c2 = randomColor()
+    }
+    updateColor([c1, c2])
   } else if ((e.key).toLowerCase() == "arrowleft") {
 
   } else if ((e.key).toLowerCase() == "arrowright") {
@@ -78,7 +83,7 @@ function toggleNav() {
     navColor(true)
     navStatus = false
   } else {
-    tntl.to(".nav-button", {y: 0, duration: .25, ease:"ease", stagger: .1}, "<0")
+    tntl.to(".nav-button", {x: 0, duration: .25, ease:"ease", stagger: .1}, "<0")
     tntl.play()
     gsap.to("#toggle-nav span", {yPercent: 100, duration: .25, ease: "ease"})
     navStatus = true
@@ -113,19 +118,23 @@ function navFullscreen() {
 }
 
 var navColorStatus = false
-var nctl = gsap.timeline()
+// var nctl = gsap.timeline()
 function navColor(overrideOff = false) {
   if(navColorStatus || overrideOff) {
     document.getElementById("nav-color-button").style.backgroundColor = ""
     document.getElementById("nav-color-button").style.color = ""
     document.getElementById("nav-color-dropdown").style.transform = ""
     document.getElementById("nav-color-dropdown").style.opacity = ""
+    document.getElementById("nav-color-dropdown").style.maxHeight = ""
+    document.getElementById("nav-color-dropdown").style.marginBottom = ""
     navColorStatus = false
   } else {
     document.getElementById("nav-color-button").style.backgroundColor = "var(--dc1)"
     document.getElementById("nav-color-button").style.color = "var(--dc2)"
     document.getElementById("nav-color-dropdown").style.transform = "translateX(0)"
     document.getElementById("nav-color-dropdown").style.opacity = "1"
+    document.getElementById("nav-color-dropdown").style.maxHeight = "10rem"
+    document.getElementById("nav-color-dropdown").style.marginBottom = ".75rem"
     navColorStatus = true
   }
 }
@@ -149,22 +158,57 @@ function navColorAdv(overrideOff = false) {
   // document.getElementById("nav-color-dropdown").classList.add('color-adv')
 }
 
+function checkContrast(c1, c2) {
+  if (c1.length > 6 || c2.length > 6) {
+    c1 = c1.replace("#", ""); c2 = c2.replace("#", "")
+  }
+    var c = [
+      parseInt(c1.slice(0, 2), 16), parseInt(c1.slice(2, 4), 16), parseInt(c1.slice(4, 6), 16),
+      parseInt(c2.slice(0, 2), 16), parseInt(c2.slice(2, 4), 16), parseInt(c2.slice(4, 6), 16)
+    ].map(function (v) {
+      v /= 255;
+      return v <= 0.03928
+          ? v / 12.92
+          : Math.pow( (v + 0.055) / 1.055, 2.4 );
+  });
+   l1 = c[0] * 0.2126 + c[1] * 0.7152 + c[2] * 0.0722;
+   l2 = c[3] * 0.2126 + c[4] * 0.7152 + c[5] * 0.0722;
+  
+   const ratio = l1 > l2 
+    ? ((l2 + 0.05) / (l1 + 0.05))
+    : ((l1 + 0.05) / (l2 + 0.05));
+
+    const result = `
+    AA-level large text: ${ratio < 1/3 ? '✓' : 'x' }
+    AA-level small text: ${ratio < 1/4.5 ? '✓' : 'x' }
+    AAA-level large text: ${ratio < 1/4.5 ? '✓' : 'x' }
+    AAA-level small text: ${ratio < 1/7 ? '✓' : 'x' }
+    Ratio: ${ratio}
+   `;
+   return ratio
+}
+
+// 179, 8, 254
+// 205, 155, 134
+
 // FOR TESTING NAV
 // toggleNav()
 // navColor()
 
 // Version
-var version = "0.01" // -- 08/28/2024 08:40:27 PM --
+var version = "0.02" // -- 04/07/2025 09:16 PM --
 var releaseVersion = "0.01b" 
 // -- Release Notes --
-// inital use of versioning
-// Quick fix made to fix link
+// Added color contrast checker, random checks for contrast before switching
+// Removed Links
+// Switched nav to be veritcal + added hoverable tooltips
 
 // To Work On
-// 
+// - Readability: Dyslexic mode? Contrast Mode, Larger text mode, color blind vision
 // 
 
 // Fill versions with version
 for (v of document.querySelectorAll(".version")) {
   v.innerHTML = releaseVersion
 }
+
