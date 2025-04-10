@@ -16,34 +16,78 @@
 <body>
   <main>
     <nav> 
-      <div id="nav-left"> 
+      <div id="nav-top"> 
         <button id="toggle-nav" onclick="toggleNav()" alt="toggle nav button"><span>🞩</span><span>=</span></button>
-        <button onclick="navFullscreen()" class="nav-button" alt="fullscreen button">⛶ <label> Fullscreen </label></button>
-        <button class="nav-button" onclick="toggleToolTip()" alt="controls help button"> ⌨ <label> Controls </label></button>
-        <button class="nav-button" id="nav-color-button" onclick="navColor()" alt="color mapping button">✦ <label> Color Mapping </label></button>
-        <div id="nav-color-dropdown">
-            <div id="active-color-container"> 
-              <div class="active-color-bg"> <input type="color" class="active-color" id="ac1"/> <span> </span> </div>
-              <div class="active-color-bg"> <input type="color" class="active-color" id="ac2"/> <span> </span> </div>
-            </div> 
-          <!-- REVAMP COLOR SYSTEM? Swap Colors button! Ease (give options for like 2s) -->
-          <!-- <button id="nav-color-dropdown-expand" onclick="navColorAdv()"> -> </button> -->
-        </div>
-        <button class="nav-button" onclick="" alt="accessibility button"> 
-          <svg width="111" height="110" viewBox="0 0 111 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button onclick="navFullscreen()" class="nav-button nav-in" alt="fullscreen button">⛶ <label> Fullscreen </label></button>
+        <button class="nav-button nav-in" onclick="toggleToolTip()" alt="controls help button"> ⌨ <label> Controls </label></button>
+        <!-- <button class="nav-button" id="nav-color-button" onclick="navColor()" alt="color mapping button">✦ <label> Color Mapping </label></button> -->
+
+        <button class="nav-button nav-in" onclick="" alt="accessibility button"> 
+          <svg width="50" height="110" viewBox="0 0 111 110" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M68.9766 15.5C68.9766 22.9558 62.9324 29 55.4766 29C48.0207 29 41.9766 22.9558 41.9766 15.5C41.9766 8.04416 48.0207 2 55.4766 2C62.9324 2 68.9766 8.04416 68.9766 15.5Z"/>
           <path d="M52.0009 38.0049C37.0358 38.2843 26.0253 30.0042 23.0009 30.0049C19.9766 30.0056 15.1781 30.8618 15.0009 38.0049C14.8237 45.148 40.0009 52.0049 40.0009 52.0049C40.0009 52.0049 42.2371 59.3979 40.0009 70.0049C40.0009 70.0049 30.4341 98.0612 30.0009 102.505C29.5677 106.948 35.5477 107.823 40.0009 108.005C46.9858 108.29 49.852 77.6704 55.4766 78C61.1012 77.6704 64.0083 108.296 71.001 108.005C75.4541 107.82 81.4342 106.948 81.001 102.505C80.5678 98.0612 71.001 70.0049 71.001 70.0049C68.7648 59.3979 71.001 52.0049 71.001 52.0049C71.001 52.0049 96.1782 45.148 96.001 38.0049C95.8238 30.8618 91.0254 30.0056 88.001 30.0049C84.9767 30.0042 73.9662 38.2843 59.001 38.0049C57.6344 37.9794 55.4766 38 55.4766 38C55.4766 38 53.3675 37.9794 52.0009 38.0049Z" />
           </svg> 
           <label> Accessibility </label>
         </button>
-        <!-- Key board character ⌨ -->
+        
+        <button class="nav-button nav-in" onclick="document.getElementById('settings-dialog').showModal()" alt="settings button"> <svg width="50" height="110" viewBox="0 0 111 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M54.5786 95C76.67 95 94.5786 77.0914 94.5786 55C94.5786 32.9086 76.67 15 54.5786 15C32.4872 15 14.5786 32.9086 14.5786 55C14.5786 77.0914 32.4872 95 54.5786 95ZM54.5786 78.1111C67.3425 78.1111 77.6897 67.7639 77.6897 55C77.6897 42.2361 67.3425 31.8889 54.5786 31.8889C41.8147 31.8889 31.4675 42.2361 31.4675 55C31.4675 67.7639 41.8147 78.1111 54.5786 78.1111Z"/>
+          <path d="M47.0409 5.08058C51.2819 2.30647 58.7999 2.30647 63.0409 5.08058C66.9397 7.63083 65.0409 19.0806 65.0409 19.0806H45.0409C45.0409 19.0806 43.1421 7.63083 47.0409 5.08058Z"/>
+          <path d="M14.0569 25.3701C15.0942 20.4097 20.4102 15.0937 25.3706 14.0564C29.9308 13.1028 36.6843 22.5417 36.6843 22.5417L22.5422 36.6838C22.5422 36.6838 13.1034 29.9303 14.0569 25.3701Z"/>
+          <path d="M105 47.0409C107.775 51.2819 107.775 58.7999 105 63.0409C102.45 66.9397 91.0005 65.0409 91.0005 65.0409V45.0409C91.0005 45.0409 102.45 43.1421 105 47.0409Z"/>
+          <path d="M84.711 14.0576C89.6714 15.0949 94.9874 20.4109 96.0247 25.3713C96.9782 29.9315 87.5394 36.685 87.5394 36.685L73.3972 22.5429C73.3972 22.5429 80.1508 13.1041 84.711 14.0576Z"/>
+          <path d="M63.0401 105C58.7991 107.775 51.2812 107.775 47.0401 105C43.1414 102.45 45.0401 91.0005 45.0401 91.0005H65.0401C65.0401 91.0005 66.9389 102.45 63.0401 105Z"/>
+          <path d="M96.0241 84.711C94.9869 89.6714 89.6709 94.9874 84.7104 96.0247C80.1503 96.9782 73.3967 87.5394 73.3967 87.5394L87.5388 73.3972C87.5388 73.3972 96.9777 80.1508 96.0241 84.711Z"/>
+          <path d="M5.08058 63.0401C2.30647 58.7991 2.30647 51.2812 5.08059 47.0401C7.63084 43.1414 19.0806 45.0401 19.0806 45.0401L19.0806 65.0401C19.0806 65.0401 7.63083 66.9389 5.08058 63.0401Z"/>
+          <path d="M25.3701 96.0234C20.4097 94.9862 15.0937 89.6702 14.0564 84.7097C13.1028 80.1496 22.5417 73.396 22.5417 73.396L36.6838 87.5382C36.6838 87.5382 29.9303 96.977 25.3701 96.0234Z"/>
+          </svg>
+          <label> Settings </label> 
+          </button>
+
        </div>  
-    
+       <div id="nav-bottom">
+         <button class="nav-button nav-in" onclick="" alt="debug and statistics button"> # <label> Statistics </label> </button>
+         <div id="nav-color-dropdown" class="nav-in">
+          <div id="active-color-container"> 
+            <div class="active-color-bg"> <input type="color" class="active-color" id="ac1"/> <span> </span> </div>
+            <div class="active-color-bg"> <input type="color" class="active-color" id="ac2"/> <span> </span> </div>
+          </div> 
+            <!-- REVAMP COLOR SYSTEM? Swap Colors button! Ease (give options for like 2s) -->
+            <!-- <button id="nav-color-dropdown-expand" onclick="navColorAdv()"> -> </button> -->
+          </div>
+         </div>
     </nav>
     <!-- &equiv; -->
       <div id="mobile-touch-area">
     <div id="main-text"> CLR BLND </div> 
+    <dialog id="settings-dialog">
+      <div id="sd-container">    
+        <label for="sd-slider"> Contrast Threshold <span id="sd-slider-value"> 99 </span></label>
+        <input type="range" min=".1" max="1" value=".5" step=".01" id="sd-slider" />
+
+        <aside id="slider-note"> 
+          <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M55 105C82.6142 105 105 82.6142 105 55C105 27.3858 82.6142 5 55 5C27.3858 5 5 27.3858 5 55C5 82.6142 27.3858 105 55 105ZM42.9102 66.7515L42.703 68.1202H55.2838L55.491 66.7515C55.8068 64.8842 56.31 63.2928 57.0007 61.9772C57.6915 60.6616 58.6091 59.5051 59.7537 58.5078C60.8983 57.5105 62.2896 56.5344 63.9276 55.5796C65.9998 54.4125 67.8548 53.0969 69.4928 51.6328C71.1308 50.1474 72.4826 48.4393 73.5483 46.5083C74.6139 44.5774 75.3441 42.3387 75.7388 39.7924C76.3308 35.9517 75.9164 32.7051 74.4955 30.0527C73.0944 27.4003 70.9137 25.3951 67.9535 24.0371C65.013 22.679 61.52 22 57.4744 22C53.7445 22 50.2318 22.6896 46.9361 24.0689C43.6404 25.4269 40.8479 27.5276 38.5587 30.371C36.2695 33.2144 34.7499 36.8641 34 41.3202H47.6169C47.8537 39.8348 48.3668 38.5723 49.1562 37.5325C49.9653 36.4716 50.9225 35.6546 52.0276 35.0817C53.1525 34.5088 54.307 34.2223 55.491 34.2223C56.6357 34.2223 57.6421 34.4876 58.5104 35.0181C59.3788 35.5273 60.0201 36.2594 60.4346 37.2142C60.849 38.1691 60.9575 39.2725 60.7602 40.5245C60.5629 41.8188 60.0991 42.9753 59.3689 43.9938C58.6387 45.0124 57.7112 45.9672 56.5863 46.8584C55.4614 47.7284 54.2182 48.5878 52.8565 49.4366C51.1593 50.5188 49.6693 51.7177 48.3866 53.0333C47.1038 54.3276 46.0085 56.0464 45.1007 58.1895C44.2127 60.3115 43.4825 63.1655 42.9102 66.7515ZM41.1933 86.581C42.555 88.1937 44.3114 89 46.4624 89C47.7847 89 49.0575 88.6287 50.2811 87.886C51.5046 87.1433 52.5308 86.146 53.3597 84.8941C54.2083 83.6421 54.6918 82.2523 54.8102 80.7245C55.0075 78.4752 54.4056 76.5549 53.0045 74.9634C51.6231 73.372 49.916 72.5762 47.8833 72.5762C45.752 72.5762 43.8575 73.372 42.1998 74.9634C40.542 76.5549 39.6145 78.4752 39.4172 80.7245C39.2396 83.0161 39.8316 84.9683 41.1933 86.581Z" />
+          </svg>            
+          <span> 
+            <p> This controls the threshold of contrast between the two random colors generated. </p>
+            <p> Higher values allow for less contrast between colors to be accepted, with 1.00 allowing two of the same colors to be generated. </p>
+            <p> The <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum" target="_blank"> WAI </a> categorizes values into the following standards: </p>
+            <ul> 
+              <li> AA Large Text - 3:1 (0.33) </li>
+              <li> AA Small Text - 4.5:1 (0.22) </li>
+              <li> AAA Large Text - 4.5:1 (0.22) </li>
+              <li> AAA Small Text - 7:1 (0.14) </li>
+            </ul>
+          </span>
+        </aside>
       </div>
+      <button id="sd-exit-button" onclick="document.getElementById('settings-dialog').close()"> 🞩 </button>  
+    </dialog>
+
+    
+      </div>
+
 
       <div id="tooltip-bar">
         <div id="tb-spacebar" class="tt-item"> Spacebar - Randomize Colors </div>

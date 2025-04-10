@@ -4,7 +4,7 @@ var activeColor1 = document.querySelectorAll(".active-color")[0]
 var activeColor2 = document.querySelectorAll(".active-color")[1]
 // var activeColor3 = document.querySelectorAll(".active-color")[2]
 var activeColors = [activeColor1, activeColor2]
-var ratioThreshold = .5
+var ratioThreshold = .4
 
 // Make sure active colors are set correctly because html cannot read css vars
 // activeColors[0].setAttribute("value", (getComputedStyle(root).getPropertyValue('--dc1')))
@@ -29,20 +29,20 @@ for (i of activeColors) {
 // Check for touchscreen and adjust control
 if ('ontouchstart' in document.documentElement) {
   document.getElementById("mobile-touch-area").addEventListener("touchstart", (e) => {
-    updateColor([randomColor(), randomColor()])
-  });
+    console.log(e)
+    c1 = randomColor(); c2 = randomColor()
+     while (!updateColor([c1, c2], true)) {
+      c1 = randomColor(); c2 = randomColor()
+    }
+  }, passive);
 }
 
 document.addEventListener("keydown", (e) =>{
   // console.log(e.key)
   if ((e.key).toLowerCase() == " ") {
+    e.preventDefault()
     document.getElementById('tb-spacebar').style.backgroundColor = "var(--dc1)"
     document.getElementById('tb-spacebar').style.color = "var(--dc2)"
-    c1 = randomColor(); c2 = randomColor()
-    while (checkContrast(c1, c2) > ratioThreshold) {
-      c1 = randomColor(); c2 = randomColor()
-    }
-    updateColor([c1, c2])
   } else if ((e.key).toLowerCase() == "arrowleft" || (e.key).toLowerCase() == "a") {
     document.getElementById('tb-a').style.backgroundColor = "var(--dc1)"
     document.getElementById('tb-a').style.color = "var(--dc2)"
@@ -62,6 +62,10 @@ document.addEventListener("keydown", (e) =>{
 
 document.addEventListener("keyup", (e) => {
   if ((e.key).toLowerCase() == " ") {
+    c1 = randomColor(); c2 = randomColor()
+    while (!updateColor([c1, c2], true)) {
+      c1 = randomColor(); c2 = randomColor()
+    }
     document.getElementById('tb-spacebar').style.backgroundColor = "var(--dc2)"
     document.getElementById('tb-spacebar').style.color = "var(--dc1)"
   } else if ((e.key).toLowerCase() == "arrowleft" || (e.key).toLowerCase() == "a") {
@@ -90,13 +94,23 @@ function randomColor() {
   return result
 }
 
-function updateColor(colorArray) {
+function updateColor(colorArray, contrastCheck = false) {
+  if (contrastCheck) {
+    if (!(checkContrast(colorArray[0], colorArray[1]) < ratioThreshold)) {
+      return false
+    }
+  }
   for (i of colorArray){
     if (i) {
       root.style.setProperty(`--dc${colorArray.indexOf(i)+1}`, i)
       localStorage.setItem(`c${colorArray.indexOf(i)+1}`, i)
       activeColors[colorArray.indexOf(i)].value = i
       activeColors[colorArray.indexOf(i)].nextElementSibling.innerHTML = i
+    }
+  }
+  if (contrastCheck) {
+    if (checkContrast(colorArray[0], colorArray[1]) < ratioThreshold) {
+      return checkContrast(colorArray[0], colorArray[1])
     }
   }
 }
@@ -106,16 +120,17 @@ updateColor(localColors)
 
 var navStatus = false
 var tntl = gsap.timeline()
+gsap.set(".nav-in", {x: -250, }, "<0")
+
 function toggleNav() {
   if (navStatus) {
     // gsap.to(".nav-button", {yPercent: -300, duration: .2, ease:"ease", stagger: .1}, "<0")
-    tntl.reverse()
-    gsap.to("#toggle-nav span", {yPercent: 0, duration: .2, ease: "ease"})
-    navColor(true)
+    tntl.to(".nav-in", {x: -250, duration: .25, ease:"ease", stagger: -.1})
+    gsap.to("#toggle-nav span", {yPercent: 0, duration: .25, ease: "ease"})
+    // navColor(true)
     navStatus = false
   } else {
-    tntl.to(".nav-button", {x: 0, duration: .25, ease:"ease", stagger: .1}, "<0")
-    tntl.play()
+    tntl.to(".nav-in", {x: 0, duration: .25, ease:"ease", stagger: .1})
     gsap.to("#toggle-nav span", {yPercent: 100, duration: .25, ease: "ease"})
     navStatus = true
   }
@@ -156,46 +171,46 @@ function navFullscreen() {
   }
 }
 
-var navColorStatus = false
-// var nctl = gsap.timeline()
-function navColor(overrideOff = false) {
-  if(navColorStatus || overrideOff) {
-    document.getElementById("nav-color-button").style.backgroundColor = ""
-    document.getElementById("nav-color-button").style.color = ""
-    document.getElementById("nav-color-dropdown").style.transform = ""
-    document.getElementById("nav-color-dropdown").style.opacity = ""
-    document.getElementById("nav-color-dropdown").style.maxHeight = ""
-    document.getElementById("nav-color-dropdown").style.marginBottom = ""
-    navColorStatus = false
-  } else {
-    document.getElementById("nav-color-button").style.backgroundColor = "var(--dc1)"
-    document.getElementById("nav-color-button").style.color = "var(--dc2)"
-    document.getElementById("nav-color-dropdown").style.transform = "translateX(0)"
-    document.getElementById("nav-color-dropdown").style.opacity = "1"
-    document.getElementById("nav-color-dropdown").style.maxHeight = "10rem"
-    document.getElementById("nav-color-dropdown").style.marginBottom = ".75rem"
-    navColorStatus = true
-  }
-}
+// var navColorStatus = false
+// // var nctl = gsap.timeline()
+// function navColor(overrideOff = false) {
+//   if(navColorStatus || overrideOff) {
+//     document.getElementById("nav-color-button").style.backgroundColor = ""
+//     document.getElementById("nav-color-button").style.color = ""
+//     document.getElementById("nav-color-dropdown").style.transform = ""
+//     document.getElementById("nav-color-dropdown").style.opacity = ""
+//     document.getElementById("nav-color-dropdown").style.maxHeight = ""
+//     document.getElementById("nav-color-dropdown").style.marginBottom = ""
+//     navColorStatus = false
+//   } else {
+//     document.getElementById("nav-color-button").style.backgroundColor = "var(--dc1)"
+//     document.getElementById("nav-color-button").style.color = "var(--dc2)"
+//     document.getElementById("nav-color-dropdown").style.transform = "translateX(0)"
+//     document.getElementById("nav-color-dropdown").style.opacity = "1"
+//     document.getElementById("nav-color-dropdown").style.maxHeight = "10rem"
+//     document.getElementById("nav-color-dropdown").style.marginBottom = ".75rem"
+//     navColorStatus = true
+//   }
+// }
 
-var navColorAdvStatus = false
-var anctl = gsap.timeline({paused: true, defaults: {ease: 'ease', duration: .5}})
-anctl.to("#nav-color-dropdown", {height: '12rem'})
-anctl.to("#nav-color-dropdown .active-color-bg", {width: '8rem', height: '13rem'}, "<0")
-anctl.to("#nav-color-dropdown .active-color-bg span", {display: "block"}, "<0")
-anctl.to("#nav-color-dropdown .active-color-bg span", {y: 0},)
+// var navColorAdvStatus = false
+// var anctl = gsap.timeline({paused: true, defaults: {ease: 'ease', duration: .5}})
+// anctl.to("#nav-color-dropdown", {height: '12rem'})
+// anctl.to("#nav-color-dropdown .active-color-bg", {width: '8rem', height: '13rem'}, "<0")
+// anctl.to("#nav-color-dropdown .active-color-bg span", {display: "block"}, "<0")
+// anctl.to("#nav-color-dropdown .active-color-bg span", {y: 0},)
 
-// anctl.pause()
-function navColorAdv(overrideOff = false) {
-  if(navColorAdvStatus || overrideOff) {
-    anctl.reverse() 
-    navColorAdvStatus = false
-  } else {
-    anctl.play() 
-    navColorAdvStatus = true
-  }
-  // document.getElementById("nav-color-dropdown").classList.add('color-adv')
-}
+// // anctl.pause()
+// function navColorAdv(overrideOff = false) {
+//   if(navColorAdvStatus || overrideOff) {
+//     anctl.reverse() 
+//     navColorAdvStatus = false
+//   } else {
+//     anctl.play() 
+//     navColorAdvStatus = true
+//   }
+//   // document.getElementById("nav-color-dropdown").classList.add('color-adv')
+// }
 
 function checkContrast(c1, c2) {
   if (c1.length > 6 || c2.length > 6) {
@@ -227,17 +242,38 @@ function checkContrast(c1, c2) {
    return ratio
 }
 
+if (JSON.parse(localStorage.getItem("ratioThreshold"))) {
+  ratioThreshold = JSON.parse(localStorage.getItem("ratioThreshold"))
+} else {
+  localStorage.setItem("ratioThreshold", ratioThreshold)
+}
+document.getElementById("sd-slider-value").textContent = ratioThreshold
+document.getElementById("sd-slider").value = ratioThreshold 
+
+var throttle = false
+document.getElementById("sd-slider").addEventListener("input", (e)=>{
+  document.getElementById("sd-slider-value").textContent = Number(e.target.value).toFixed(2)
+  ratioThreshold = e.target.value
+  if (!throttle) {
+    throttle = true
+    setTimeout(() => {
+      throttle = false
+      localStorage.setItem("ratioThreshold", ratioThreshold)
+    }, 1000);
+  }
+})
+
 // Version
-var version = "0.03" // -- 04/08/2025 03:21 PM --
+var version = "0.04" // -- 04/10/2025 05:30 PM --
 var releaseVersion = "0.02" 
 // -- Release Notes --
-// Made whole nav on left, restyled, and fixed the hover outside issue
-// Added accessibility button + tooltip button
-// Added tooltip functionality
+// Added settings and asides
+// Fixed various small issues 
+//
 
 // To Work On
 // - Readability: Dyslexic mode? Contrast Mode, Larger text mode, color blind vision
-// 
+// - Add stats functionality
 
 // Fill versions with version
 for (v of document.querySelectorAll(".version")) {
