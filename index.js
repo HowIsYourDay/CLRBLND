@@ -125,12 +125,12 @@ gsap.set(".nav-in", {x: -250, }, "<0")
 function toggleNav() {
   if (navStatus) {
     // gsap.to(".nav-button", {yPercent: -300, duration: .2, ease:"ease", stagger: .1}, "<0")
-    tntl.to(".nav-in", {x: -250, duration: .25, ease:"ease", stagger: -.1})
+    tntl.to(".nav-in", {x: -250, duration: .35, ease:"back.out", stagger: -.1})
     gsap.to("#toggle-nav span", {yPercent: 0, duration: .25, ease: "ease"})
     // navColor(true)
     navStatus = false
   } else {
-    tntl.to(".nav-in", {x: 0, duration: .25, ease:"ease", stagger: .1})
+    tntl.to(".nav-in", {x: 0, duration: .35, ease:"back.out", stagger: .1})
     gsap.to("#toggle-nav span", {yPercent: 100, duration: .25, ease: "ease"})
     navStatus = true
   }
@@ -138,10 +138,18 @@ function toggleNav() {
 
 var toolStatus = false
 var ttl = gsap.timeline()
-ttl.set(".tt-item", {yPercent: 50, opacity: 0}) 
+ttl.set(".tt-item", {yPercent: 50, opacity: 0, display: "none"}) 
+ttl.set("#tb-arrow-container", {display: "none"})
 function toggleToolTip() {
-  toolStatus ? ttl.to(".tt-item", {yPercent: 50, opacity: 0, ease:"ease", stagger: -.15}) 
-  :    ttl.to(".tt-item", {yPercent: 0, opacity: 1, ease:"ease", stagger: .15})
+  if (toolStatus) {
+    ttl.to(".tt-item", {yPercent: 50, opacity: 0, ease:"back.out", stagger: -.15})
+    ttl.set("#tb-arrow-container", {display: "none"})
+    ttl.set(".tt-item", {display: "none"})
+  } else {
+    ttl.set(".tt-item", {display: ""})
+    ttl.set("#tb-arrow-container", {display: ""})
+    ttl.to(".tt-item", {yPercent: 0, opacity: 1, ease:"back.out", stagger: .15})
+  }
   toolStatus = !toolStatus 
 }
 if (window.matchMedia("(max-width: 600px)").matches) {
@@ -168,6 +176,29 @@ function navFullscreen() {
     document.webkitExitFullscreen();
   } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
+  }
+}
+
+var activeFilter = {document: ""}
+function filter(type, targetID, buttonActivate = false){
+  type = type.toLowerCase()
+  var target = document.getElementById(targetID)
+  if (type == activeFilter[targetID]) {
+    target.style.filter = ``
+    activeFilter[targetID] = ``
+    if (buttonActivate !== false) {
+      target.children[0].children[buttonActivate].style.backgroundColor = ""; target.children[0].children[buttonActivate].style.color = ""
+    }
+  } else {
+    target.style.filter = `url(#${type})`
+    activeFilter[targetID] = type
+    if (buttonActivate !== false) {
+      for (buttons of target.children[0].children) {
+        buttons.style.backgroundColor = ''; buttons.style.color = ''
+      }
+      target.children[0].children[buttonActivate].style.backgroundColor = "white"
+      target.children[0].children[buttonActivate].style.color = "black"
+    }
   }
 }
 
@@ -264,16 +295,17 @@ document.getElementById("sd-slider").addEventListener("input", (e)=>{
 })
 
 // Version
-var version = "0.04" // -- 04/10/2025 05:30 PM --
-var releaseVersion = "0.02" 
+var version = "0.05" // -- 04/15/2025 03:44 PM --
+var releaseVersion = "0.03" 
 // -- Release Notes --
-// Added settings and asides
-// Fixed various small issues 
+// Added Images & Proper text
+// Fixed various key control bugs 
 //
 
 // To Work On
 // - Readability: Dyslexic mode? Contrast Mode, Larger text mode, color blind vision
 // - Add stats functionality
+// - Check if contrast of two colors is one and warn
 
 // Fill versions with version
 for (v of document.querySelectorAll(".version")) {
