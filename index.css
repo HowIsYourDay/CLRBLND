@@ -388,7 +388,7 @@ section .p-long {
   background-color: var(--dc1); color: var(--dc2);
   writing-mode: vertical-lr; 
   font-weight: 900;
-  font-size: 12.5rem;
+  font-size: 10vw;
   max-height: 200rem;
   border-radius: 2rem;
   padding: 0 2rem;
@@ -462,15 +462,33 @@ section .p-long {
 
 
 #img-m1 {
-  height: 494px; padding: 1rem;
-  width: 785px;
+  width: 90%;
+  aspect-ratio: 785 / 494;
   background: url(src/imgs/ColorblindMap.png), white;
   background-repeat: no-repeat;
-  background-position: 50% 50%; background-size: clip;
+  background-position: 50% 50%; background-size: 95% 95%;
+  
+}
+
+#mobile-cover {
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-color: var(--dc2);
+  display: flex; place-items: center; justify-content: center;
+  font-size: 3rem; text-align: center;
+  color: var(--dc1);
+  padding: 4rem;
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  #s1-text-dec {display: none;}
 }
 
 @media (max-width: 600px) {
-
+  section {width: 60%;}
+  section p {font-size: .9rem;}
+  .img-container-overlay {flex-direction: column;}
 }
 
 @media (max-width: 400px) {

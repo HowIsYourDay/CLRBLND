@@ -295,11 +295,11 @@ document.getElementById("sd-slider").addEventListener("input", (e)=>{
 })
 
 // Version
-var version = "0.05" // -- 04/15/2025 03:44 PM --
-var releaseVersion = "0.03" 
+var version = "0.05a" // -- 04/15/2025 04:07 PM --
+var releaseVersion = "0.04" 
 // -- Release Notes --
-// Added Images & Proper text
-// Fixed various key control bugs 
+// Quick mobile support
+// Added unused mobile cover - it works fine without, kind of 
 //
 
 // To Work On
