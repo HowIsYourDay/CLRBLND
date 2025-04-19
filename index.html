@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   
   <script src="index.js" defer> </script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
 
   <title>CLR BLND</title>
 </head>
@@ -98,15 +99,14 @@
         <p class=""> I dedicate time to crafting my designs and sharing them because I find immense satisfaction in getting inspired and, in turn, creating something that might inspire someone else. I also find it amusing when my peers give me a perplexed look after I explain that I do web development and design in my freetime, it never gets old. </p>
         <p class=""> My career choice is not the only thing that clashes with my designs though. I am colorblind. Potentially the tamest accessibility issue that may come with visual designs, but it still causes funny issues in my designs. However, this leads me to a not so funny topic. General accessibility in modern user interfaces, digital design, and the web is sorely lacking.</p>
       </div>
-      <div id="s1-text-dec">CLRBLND<br>CLRBLND</div>
+      <div id="s1-text-dec" aria-hidden="true">CLRBLND<br>CLRBLND</div>
     </section>
-    <section>
-      <p class=""> Right off the bat it's important to recognize that digital media faces very similar problems as non-digital media, but has different restrictions as to how it can address accessibility issues. This is to say that digital media has many abilities to help create a more accessible web. The W3C (World Wide Web Consortium) put in place WAI-WCAG (Web Accessibility Initiative - Web Content Accessibility Guidelines) standards. These are great resources and standards for accessibility rules on the web. Despite this, it is quite common to come across a lack of accessibility built into websites, or even worse, accessibility built in incorrectly. This is detrimental to users of the web, the web which is fundamentally designed to work for everyone.</p>
-      <p class=""> Since the web is just a vessel to viewing digital media and graphic design, we can split these two topics. Consider that a piece of digital content, such as a graphical element, could either be accessible to view, or not. In the case that this content is inaccessible, the web acts as a filter that can correct these issues.</p>
+    <section id="s2">
+      <p class=""> Right off the bat it's important to recognize that digital media faces very similar problems as non-digital media, but has different restrictions as to how it can address accessibility issues. This is to say that digital media has many abilities to help create a more accessible web. The W3C (World Wide Web Consortium) put in place WAI-WCAG (Web Accessibility Initiative - Web Content Accessibility Guidelines) standards. These provide great resources and rulesets for accessibility on the web. Despite this, it is quite common to come across a lack of accessibility built into websites, or even worse, accessibility built in incorrectly. This is detrimental to users of the web, the web which is fundamentally designed to work for everyone.</p>
+      <p class=""> Since the web is just a vessel to viewing digital media and graphic design, we can split these two topics. Consider that a piece of digital content, such as a graphical element, could either be accessible to view, or not. In the case that this content is inaccessible, the web acts as a filter that can correct these issues, or not.</p>
       <p class=""> It isn't necessarily problematic that a certain piece of content is inaccessible by default. Think about a painting in the context of someone who has a visual disability that limits or completely restricts vision. It is almost impossible to design a painting alone to be accessible in the case that someone cannot see, to no fault of the creator. However, we can add in context like alternative texts that describes what is pictured. Of course, this is necessary for accessibility, but isn't sufficient.</p>
-      <p class=""> Accessibility issues like colorblindness may construct a false image, which is detrimental in its own way. While the scenarios that the images below construct may be low stakes (picking up the wrong fruit is pretty embarrassing), this represents a struggle that can be far more problematic. Trying interacting with the photos to apply colorblind filters.</p>
-
-      <div class="img-container" id="img-l1"> 
+      <p class=""> Accessibility issues like colorblindness may construct a false image, which is detrimental in its own way. While the scenarios that the images below construct may be low stakes (picking up the wrong fruit is pretty embarrassing), this represents a struggle that can be far more problematic. Trying interacting with the photos to apply colorblind filters to see what I mean.</p>
+      <div class="img-container" id="img-l1" alt="Sunrise illuminates a beautiful lake and snowy mountains"> 
         <div class="img-container-overlay">
           <button onclick="filter('Achromatopsia', 'img-l1', '0')"> Achromatopsia </button>
           <button onclick="filter('Deuteranopia', 'img-l1', '1')"> Deuteranopia </button>
@@ -115,7 +115,7 @@
           <a target="_blank" href="https://unsplash.com/photos/sunrise-illuminates-a-beautiful-lake-and-snowy-mountains-8Jbo0T-DxUI"> @ </a> 
         </div>
       </div>
-      <div class="img-container" id="img-f1"> 
+      <div class="img-container" id="img-f1" alt="Photo of fruits with various colors in white baskets in a fruit market"> 
         <div class="img-container-overlay">
           <button onclick="filter('Achromatopsia', 'img-f1', '0')"> Achromatopsia </button>
           <button onclick="filter('Deuteranopia', 'img-f1', '1')"> Deuteranopia </button>
@@ -124,37 +124,43 @@
           <a target="_blank" href="https://unsplash.com/photos/orange-fruits-on-white-plastic-crate-0JRswSQQZGU"> @ </a> 
         </div>
       </div>
-      <div class="img-container" id="img-l2"> 
+      <div class="img-container" id="img-l2" alt="Photo of Nyhavn harbour in Copenhagen Denmark shows bright colored houses in a row"> 
         <div class="img-container-overlay">
           <button onclick="filter('Achromatopsia', 'img-l2', '0')"> Achromatopsia </button>
-          <button onclick="filter('Deuteranopia', 'img-l2', '1')"> Deuteranopia </button>
+          <button onclick="filter('Deuteranopia', 'img-l2', '1')"> Deuteranopia </button>       
           <button onclick="filter('Protanopia', 'img-l2', '2')"> Protanopia </button>
           <button onclick="filter('Tritanopia', 'img-l2', '3')"> Tritanopia </button>
           <a target="_blank" href="https://unsplash.com/photos/q9KIP0iytbU"> @ </a> 
         </div>
       </div>
-
+      <p class=""> The above images use a filter system based on <a href="https://developer.chrome.com/docs/chromium/cvd">Mathias Bynens' Simulating color vision deficiencies in the Blink Renderers</a> through the use of matrices based on <a href="https://www.inf.ufrgs.br/%7Eoliveira/pubs_files/CVD_Simulation/CVD_Simulation.html"> a physiologically accurate color vision deficiency simulation model by Machado, Oliveira, and Fernandes</a>. Color blindness affects different people with different levels of severity, in the images above I use the models highest severity value to illustrate my point.</p>
+      <p> If you are colorblind, you might consider the above semi-problematic, since this interactivity is mostly lost on you. The irony is not lost on me. Unfortunately, much of the research behind simulating color blindness is published without the express consideration of, well… colorblind people. When you try to compare the same image with a colorblind filter on one that looks the same to the colorblind person, the value is kind of lost to the reader.</p>
     </section>
-    <section>
-      <div class="img-container" id="img-m1"> 
-        <div class="img-container-overlay">
-          <button onclick="filter('Achromatopsia', 'img-m1', '0')"> Achromatopsia </button>
-          <button onclick="filter('Deuteranopia', 'img-m1', '1')"> Deuteranopia </button>
-          <button onclick="filter('Protanopia', 'img-m1', '2')"> Protanopia </button>
-          <button onclick="filter('Tritanopia', 'img-m1', '3')"> Tritanopia </button>
-          <a target="_blank" href="https://github.com/flekschas/simple-world-map"> @ </a> 
+    <section id="s3">      
+      <div id="spec-img-container"> 
+        <div class="img-container" id="img-m1" alt="map"> 
+          <div class="img-container-overlay">
+            <button onclick="filter('Achromatopsia', 'img-m1', '0')"> Achromatopsia </button>
+            <button onclick="filter('Deuteranopia', 'img-m1', '1')"> Deuteranopia </button>
+            <button onclick="filter('Protanopia', 'img-m1', '2')"> Protanopia </button>
+            <button onclick="filter('Tritanopia', 'img-m1', '3')"> Tritanopia </button>
+            <a target="_blank" href="https://github.com/flekschas/simple-world-map"> @ </a> 
+          </div>
         </div>
+        <label for="img-m1"> This is how it feels to interact with diagrams, maps, and graphs sometimes. This is a sort of exaggerated example of inaccessible design.</label>
       </div>
-
+      <div id="s3-text"> 
+        <p class="p-right"> Vision deficiencies like colorblindness are not the only accessibility issue that people might face though. Furthermore, inaccessible design can cause issues for everyone, even those who don't face accessibility issues. </p>
+        <p class="p-right"> Websites with clear navigation, logical layouts, and responsive UIs; Digital designs with thoughtful color choices, simple patterns, and readable text all help to create accessible experiences that are enjoyable for all users.</p>
+        <p class="p-right"> Modern digital design stands at the intersection of creativity, technology, and responsibility. We need to consider accessibility as a necessity by creating responsive and inclusive pieces. We need to innovate and inspire accessibility in other designs. I believe we can make progress in accessibility, for a brighter more inclusive future.</p>
+      </div>
 
       <!-- <img src="src/imgs/Colorblind Map.png"/> -->
     </section>
     <div id="tooltip-bar">
       <div id="tb-spacebar" class="tt-item"> Spacebar - Randomize Colors </div>
       <div id="tb-arrow-container">
-        <div class="tb-arrow-key tb-empty-key"> </div>  
         <div class="tb-arrow-key tt-item" id="tb-w"> ↑ </div>  
-        <div class="tb-arrow-key tb-empty-key"> </div>  
         <div class="tb-arrow-key tt-item" id="tb-a"> ← </div>  
         <div class="tb-arrow-key tt-item" id="tb-s"> ↓ </div>  
         <div class="tb-arrow-key tt-item" id="tb-d"> → </div>  

@@ -294,12 +294,37 @@ document.getElementById("sd-slider").addEventListener("input", (e)=>{
   }
 })
 
+for (p of document.querySelectorAll("section p:not(.p-right)"))
+
+gsap.from(p, {
+  scrollTrigger: {
+    trigger: p,
+    start: "top 80%",
+  },
+  x: -100,
+  opacity: 0,
+  duration: .5
+})
+
+for (pr of document.querySelectorAll(".p-right"))
+
+  gsap.from(pr, {
+    scrollTrigger: {
+      trigger: pr,
+      start: "top 80%",
+    },
+    x: 100,
+    opacity: 0,
+    duration: .5
+  })
+  
+
 // Version
-var version = "0.05a" // -- 04/15/2025 04:07 PM --
-var releaseVersion = "0.04" 
+var version = "0.06" // -- 04/19/2025 02:25 PM --
+var releaseVersion = "0.05" 
 // -- Release Notes --
-// Quick mobile support
-// Added unused mobile cover - it works fine without, kind of 
+// Added Content
+// Quick Bug Fixes 
 //
 
 // To Work On
