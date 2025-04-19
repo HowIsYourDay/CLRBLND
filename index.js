@@ -320,11 +320,11 @@ for (pr of document.querySelectorAll(".p-right"))
   
 
 // Version
-var version = "0.06" // -- 04/19/2025 02:25 PM --
-var releaseVersion = "0.05" 
+var version = "0.06a" // -- 04/19/2025 02:39 PM --
+var releaseVersion = "0.05a" 
 // -- Release Notes --
-// Added Content
-// Quick Bug Fixes 
+// Quickpatch
+//  
 //
 
 // To Work On

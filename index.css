@@ -480,7 +480,7 @@ section .p-long {
   display: flex; flex-direction: column;
   min-width: 30rem; gap: 1rem; text-align: center;
 }
-#spec-img-container label {width: 100%;}
+#spec-img-container label {width: 100%; color: var(--dc1);}
 
 #mobile-cover {
   position: fixed;
